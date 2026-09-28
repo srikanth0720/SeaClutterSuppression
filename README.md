@@ -1,72 +1,156 @@
-# End-to-End Target Detection in Range-Doppler Maps with Temporal U-Nets
+# Maritime Radar AI — AI-Based Sea-Clutter Rejection
 
-This repository contains the code developed as part of my BSc thesis at **Leiden University** and internship at **TNO**, titled:
+An AI-powered software demonstration for maritime radar target detection and sea-clutter rejection using a pretrained Temporal U-Net model, synthetic radar data, and an interactive Streamlit dashboard.
 
+The system demonstrates how deep-learning-based processing can assist target detection in Range-Doppler Maps affected by simulated maritime sea clutter.
 
-**_Threshold-Tunable U-Net for Small Target Detection in Maritime Radar: An Alternative to CFAR_**
+> **Project Scope:** This is a software demonstration using simulated radar and sea-clutter data. It is not connected to live radar hardware and should not be interpreted as an operational or military radar system.
+
+---
 
 ## Overview
 
-The aim of this project is to evaluate and compare the performance of deep learning models in maritime radar target detection, specifically focusing on sea clutter suppression. The pipeline includes:
+Maritime radar systems can experience strong sea clutter that can make small or low-power targets difficult to detect.
 
-- Image segmentation via a **U-Net-based** architecture
-- Synthetic radar and sea clutter simulation
+This project demonstrates an AI-based processing pipeline that generates simulated maritime radar data, processes it into Range-Doppler Maps, applies a pretrained Temporal U-Net model, and visualizes the resulting target-detection information through a Streamlit dashboard.
 
-This work demonstrates how AI, particularly deep learning, can be applied to real-world signal processing problems in radar technology.
+### Processing Pipeline
 
-## Getting Started
+```text
+Radar Simulation
+       ↓
+Sea-Clutter + Target Generation
+       ↓
+Range-Doppler Map
+       ↓
+3-Frame Temporal Input
+       ↓
+Pretrained Temporal U-Net
+       ↓
+AI Probability Map
+       ↓
+Clutter Rejection / Target Detection
+       ↓
+Streamlit Dashboard
 
-### With pip install 
+Key Features
 
-- Create a virtual environment and install the required packages:
-- python -m venv venv
-- source venv/bin/activate # or venv\Scripts\activate on Windows
-- pip install -r requirements.txt
+Synthetic maritime radar simulation
+Sea-clutter generation
+Moving target simulation
+Range-Doppler Map generation
+3-frame temporal radar input
+Pretrained Temporal U-Net inference
+AI probability-map generation
+Threshold-based target detection
+Configurable detection threshold
+Processing-time measurement
+Interactive Streamlit dashboard
+Visual radar-processing pipeline
+Existing CA-CFAR implementation for future comparison
 
-### With uv sync
-- Make sure to have poetry and uv installed on the device
-- Do uv sync
+                         MARITIME RADAR AI
+                                │
+                                ▼
+                    ┌─────────────────────┐
+                    │   Radar Simulator   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Sea Clutter +       │
+                    │ Maritime Targets    │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Range-Doppler Maps  │
+                    │      128 × 128      │
+                    └──────────┬──────────┘
+                               │
+                         3-frame input
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Temporal U-Net    │
+                    │   Tversky Model     │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │  AI Probability Map │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │  Target Detection   │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ Streamlit Dashboard │
+                    └─────────────────────┘
 
-##  Usage
+                    SeaClutterSuppression/
+│
+├── frontend/
+│   └── app.py
+│
+├── backend/
+│   └── pipeline.py
+│
+├── models/
+│   ├── Unet.py
+│   ├── end_to_end.py
+│   └── swin_transformer.py
+│
+├── pretrained/
+│   ├── tversky.pt
+│   ├── behemoth.pt
+│   └── behemoth2.pt
+│
+├── sea_clutter/
+│   ├── parameters.py
+│   ├── physics.py
+│   ├── sea_helper.py
+│   └── load_data.py
+│
+├── src/
+│   ├── generate_data.py
+│   ├── evaluate.py
+│   ├── helper.py
+│   └── unet_training.py
+│
+├── evaluation_results/
+│
+├── CA-CFAR.py
+├── requirements.txt
+├── README.md
+├── LICENSE
+├── CITATION.cff
+└── .gitignore
 
-### Marimo Notebook usage
-This repository includes a Marimo notebook which allows its users to design their own sea cluttered Range Doppler maps, generate a dataset and finally train a Unet on it. Use the following command to run: 
-```bash
-marimo run app.py
-```
-### Interactive evaluation
-After training a model on a dataset, there is the option to visualize the performance of the model with an interactive interface. Use the following command:
-```bash
-python -m src.end_to_end_evaluate --model [PATH_TO_UNET_MODEL] --dataset [PATH_TO_DATA] --base-filter-size [NUMBER_OF_BASE_FILTERS] --interactive
-```
-Notice that the training data had to be saved in the generation section of the marimo app in order to use this feature. The number of base filters parameters are defined in the training section of the marimo app. 
-
-## Citation
-
-If you use this work in your research, please cite this repository as described below or see the CITATION.cff file for citation formats:
-
-```bibtex
-@software{Lens_SeaClutterSuppression_2025,
-  author = {Pepijn Lens},
-  title = {Threshold-Tunable U-Net for Small Target Detection in Maritime Radar: An Alternative to CFAR},
-  url = {https://github.com/pepijn-lens/SeaClutterSuppression},
-  year = {2025},
-  note = {BSc thesis at Leiden University and internship at TNO}
-}
-```
-
-## Acknowledgments
-
-I would like to thank my supervisors:
-
-- Bas Jacobs
-- Giuseppe Papari
-- Peter van der Putten
-- Daan Pelt
-
-## Future Work
-- Training on real-world radar datasets
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+                    GitHub Repository
+                           │
+                           ▼
+                    Deployment Platform
+                           │
+                           ▼
+                  Streamlit Application
+                           │
+                           ▼
+                    frontend/app.py
+                           │
+                           ▼
+                   backend/pipeline.py
+                           │
+             ┌─────────────┼─────────────┐
+             ▼             ▼             ▼
+        Radar Simulator   U-Net       CA-CFAR
+             │             │             │
+             └─────────────┼─────────────┘
+                           ▼
+                    Detection Results
+                           │
+                           ▼
+                       Dashboard
