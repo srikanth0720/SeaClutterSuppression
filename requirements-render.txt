@@ -1,0 +1,11 @@
+streamlit==1.64.0
+numpy==2.3.0
+scipy==1.15.3
+scikit-learn==1.7.0
+matplotlib==3.10.3
+pandas==2.3.0
+pillow==11.2.1
+opencv-python==4.11.0.86
+torch==2.7.1
+tqdm==4.67.1
+typing_extensions==4.14.0
